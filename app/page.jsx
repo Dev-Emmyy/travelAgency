@@ -1,12 +1,14 @@
-// app /page.tsx
 'use client';
+
 import { Box } from '@mui/material';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
+import Navbar from './components/Navbar';
+import Destination from './components/Destination';
 
 export default function Page() {
-  const { data: session, status } = useSession();
+  const { status } = useSession();
   const router = useRouter();
 
   useEffect(() => {
@@ -15,17 +17,26 @@ export default function Page() {
     }
   }, [status, router]);
 
-
   // Only show content if authenticated
-  if (session) {
+  if (status === 'authenticated') {
     return (
-      <Box sx={{backgroundColor : "#D5D6DB", minHeight : "100vh"}}>
-        <h1 className="text-2xl font-bold">Welcome, {session.user?.name}</h1>
-        {/* Your  content here */}
+      <Box 
+        sx={{ 
+          backgroundColor: '#D5D6DB', 
+          minHeight: '100vh',
+          width: '100%',
+          margin: 0,
+          padding: 0,
+          display: 'flex',
+          flexDirection: 'column',
+          position: 'relative'
+        }}
+      >
+        <Navbar/>
+        <Destination/>
       </Box>
     );
   }
 
-  // This return is optional as the useEffect will redirect
-  return null;
+  return null; // Redirecting unauthenticated users
 }

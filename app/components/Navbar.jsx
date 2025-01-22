@@ -64,7 +64,7 @@ const Navbar = () => {
           </Box>
         )}
         
-        {['Destination', 'Hotels', 'Flights', 'Bookings'].map((item) => (
+        {['Destination', 'Bookings', 'Flights', 'Agencies'].map((item) => (
           <Box
             key={item}
             component={Link}

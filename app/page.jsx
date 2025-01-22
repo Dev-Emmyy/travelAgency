@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Destination from './components/Destination';
+import Bookings from './components/Bookings';
 
 export default function Page() {
   const { status } = useSession();
@@ -34,9 +35,10 @@ export default function Page() {
       >
         <Navbar/>
         <Destination/>
+        <Bookings/>
       </Box>
     );
   }
 
-  return null; // Redirecting unauthenticated users
+  return null; 
 }

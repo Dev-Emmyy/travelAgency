@@ -55,6 +55,24 @@ const Destination = () => {
     }
   ];
 
+  const destinations = [
+    {
+      icon: '/destination1.png',
+      title: 'Rome, Italy',
+      description: '10 Days Trip.'
+    },
+    {
+      icon: '/destination2.png',
+      title: 'London, UK',
+      description: '12 Days Trip.'
+    },
+    {
+      icon: '/destination3.png',
+      title: 'Full Europe',
+      description: '28 Days Trip'
+    }
+  ];
+
   return (
     <Box sx={{ mt: 10 }}>
       <Box
@@ -258,6 +276,122 @@ const Destination = () => {
           </Box>
         </Box>
       </Box>
+
+
+
+      <Box sx={{
+        mt: 10, 
+        mb: 10,
+        display: 'flex',
+        flexDirection: "column",
+        alignItems: 'center',
+      }}>
+        <Box>
+          <Typography variant='h6'
+            sx={{
+              color: "#5E6282",
+              fontSize: "18px",
+              fontWeight: 200,
+              fontFamily: "Poppins",
+              mb: 2
+            }}
+          >
+            Top Selling
+          </Typography>
+        </Box>
+        <Box>
+          <Typography variant='h2'
+            sx={{
+              color: "#181E4B",
+              fontSize: "50px",
+              fontWeight: 500,
+              fontFamily: "'Volkhov', serif",
+              mb: 2
+            }}
+          >
+            DESTINATIONS
+          </Typography>
+        </Box>
+
+        <Box
+          sx={{
+            maxWidth: '100%',
+            mx: 'auto',
+            px: { xs: 2, sm: 3, md: 4 },
+            py: 4,
+          }}
+        >
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'center',
+              gap: { xs: 3, sm: 4, md: 5 },
+              flexWrap: 'wrap',
+            }}
+          >
+            {destinations.map((destination, index) => (
+              <Box
+                key={index}
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: "center",
+                }}
+              >
+                {/* Image Section */}
+                <Image
+                  src={destination.icon}
+                  alt={destination.icon}
+                  width={80} // Matches card width
+                  height={250} // Taller image for emphasis
+                  style={{
+                  objectFit: 'cover', // Ensures proper scaling
+                  width: '150%',
+                }}
+                />
+
+                {/* Text Section */}
+                <Box
+                  sx={{
+                    backgroundColor: '#705BFA',
+                    padding: '24px 56px', 
+                    borderBottomLeftRadius: '24px',
+                    borderBottomRightRadius: '24px',
+                    marginTop: "-32px"
+                  }}
+                >
+                  <Typography
+                    sx={{
+                      color: '#FFFFFF',
+                      fontSize: { xs: '16px', sm: '18px' },
+                      fontWeight: 600,
+                      fontFamily: "'Open Sans', sans-serif",
+                      marginBottom: '8px',
+                    }}
+                  >
+                    {destination.title} {/* Example: "London, UK" */}
+                  </Typography>
+                  <Typography
+                    sx={{
+                      color: '#FFFFFF',
+                      fontSize: { xs: '14px', sm: '16px' },
+                      fontWeight: 400,
+                      fontFamily: 'Poppins',
+                      lineHeight: 1.5,
+                    }}
+                  >
+                    {destination.description} {/* Example: "$4.2k" */}
+                  </Typography>
+                </Box>
+              </Box>
+            ))}
+          </Box>
+        </Box>
+
+    </Box>
+
+
     </Box>
   );
 };

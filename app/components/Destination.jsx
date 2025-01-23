@@ -1,7 +1,7 @@
+import React from 'react';
 import { Box, Typography, Button, useTheme, useMediaQuery } from '@mui/material';
 import PlayCircleFilledIcon from '@mui/icons-material/PlayCircleFilled';
 import Image from 'next/image';
-import React from 'react';
 
 const primaryButtonStyle = {
   backgroundColor: "#F1A501",
@@ -74,21 +74,27 @@ const Destination = () => {
   ];
 
   return (
-    <Box sx={{ mt: 10 }}>
+    <Box sx={{ mt: { xs: 5, md: 10 } }}>
+      {/* Hero Section */}
       <Box
         sx={{
           display: 'flex',
+          flexDirection: { xs: 'column', md: 'row' },
           alignItems: 'center',
           justifyContent: 'space-between',
-          padding: '16px 24px',
+          padding: { xs: '16px', md: '16px 24px' },
         }}
       >
-        <Box>
+        <Box sx={{ 
+          width: { xs: '100%', md: '50%' },
+          textAlign: { xs: 'center', md: 'left' },
+          px: { xs: 2, md: 0 }
+        }}>
           <Typography 
             variant="h4" 
             sx={{
               color: "#DF6951",
-              fontSize: "20px",
+              fontSize: { xs: '16px', md: '20px' },
               fontWeight: 500,
               fontFamily: "Poppins",
               mb: 2
@@ -99,9 +105,10 @@ const Destination = () => {
           <Typography variant='h1'
             sx={{
               color: "#181E4B",
-              fontSize: "89px",
+              fontSize: { xs: '48px', sm: '64px', md: '89px' },
               fontWeight: 500,
               fontFamily: "'Volkhov', serif",
+              lineHeight: 1.2,
               mb: 2
             }}
           >
@@ -112,20 +119,23 @@ const Destination = () => {
           <Typography variant='h5'
             sx={{
               color: "#5E6282",
-              fontSize: "16px",
+              fontSize: { xs: '14px', md: '16px' },
               fontWeight: 100,
               fontFamily: "Poppins",
-              mb: 3
+              mb: 3,
+              maxWidth: 500
             }}
           >
-            Built Wicket longer admire do barton vanity itself do in it. Preferred to sportsmen it engrossed listening. Park gate sell they west hard for the.
+            Built Wicket longer admire do barton vanity itself do in it. Preferred to sportsmen it engrossed listening.
           </Typography>
           
           <Box 
             sx={{
               display: 'flex',
+              flexDirection: { xs: 'column', sm: 'row' },
               alignItems: 'center',
-              gap: 5,
+              justifyContent: { xs: 'center', md: 'flex-start' },
+              gap: { xs: 2, sm: 5 },
               mb: 2
             }}
           >
@@ -137,6 +147,7 @@ const Destination = () => {
                 display: 'flex',
                 alignItems: 'center',
                 gap: 1,
+                cursor: 'pointer'
               }}
             >
               <PlayCircleFilledIcon 
@@ -165,44 +176,55 @@ const Destination = () => {
           </Box>
         </Box>
 
-        <Box>
-          <Image src="/traveller.png" height={600} width={600} alt='traveller'/>
+        <Box sx={{ 
+          width: { xs: '100%', md: '50%' },
+          display: 'flex', 
+          justifyContent: 'center' 
+        }}>
+          <Image 
+            src="/traveller.png" 
+            height={600} 
+            width={600} 
+            alt='traveller' 
+            style={{ 
+              maxWidth: '100%', 
+              height: 'auto' 
+            }}
+          />
         </Box>
       </Box>
 
+      {/* Services Section */}
       <Box sx={{
-        mt: 10, 
-        mb: 10,
+        mt: { xs: 5, md: 10 }, 
+        mb: { xs: 5, md: 10 },
         display: 'flex',
         flexDirection: "column",
         alignItems: 'center',
       }}>
-        <Box>
-          <Typography variant='h6'
-            sx={{
-              color: "#5E6282",
-              fontSize: "18px",
-              fontWeight: 200,
-              fontFamily: "Poppins",
-              mb: 2
-            }}
-          >
-            CATEGORY
-          </Typography>
-        </Box>
-        <Box>
-          <Typography variant='h2'
-            sx={{
-              color: "#181E4B",
-              fontSize: "50px",
-              fontWeight: 500,
-              fontFamily: "'Volkhov', serif",
-              mb: 2
-            }}
-          >
-            We Offer Best Services
-          </Typography>
-        </Box>
+        <Typography variant='h6'
+          sx={{
+            color: "#5E6282",
+            fontSize: { xs: '16px', md: '18px' },
+            fontWeight: 200,
+            fontFamily: "Poppins",
+            mb: 2
+          }}
+        >
+          CATEGORY
+        </Typography>
+        <Typography variant='h2'
+          sx={{
+            color: "#181E4B",
+            fontSize: { xs: '36px', md: '50px' },
+            fontWeight: 500,
+            fontFamily: "'Volkhov', serif",
+            mb: 2,
+            textAlign: 'center'
+          }}
+        >
+          We Offer Best Services
+        </Typography>
 
         <Box
           sx={{
@@ -244,7 +266,7 @@ const Destination = () => {
                   src={service.icon}
                   height={50}
                   width={50}
-                  alt={service.icon}
+                  alt={service.title}
                   style={{ marginBottom: '16px' }}
                 />
                 <Typography
@@ -277,41 +299,37 @@ const Destination = () => {
         </Box>
       </Box>
 
-
-
+      {/* Destinations Section */}
       <Box sx={{
-        mt: 10, 
-        mb: 10,
+        mt: { xs: 5, md: 10 }, 
+        mb: { xs: 5, md: 10 },
         display: 'flex',
         flexDirection: "column",
         alignItems: 'center',
       }}>
-        <Box>
-          <Typography variant='h6'
-            sx={{
-              color: "#5E6282",
-              fontSize: "18px",
-              fontWeight: 200,
-              fontFamily: "Poppins",
-              mb: 2
-            }}
-          >
-            Top Selling
-          </Typography>
-        </Box>
-        <Box>
-          <Typography variant='h2'
-            sx={{
-              color: "#181E4B",
-              fontSize: "50px",
-              fontWeight: 500,
-              fontFamily: "'Volkhov', serif",
-              mb: 2
-            }}
-          >
-            DESTINATIONS
-          </Typography>
-        </Box>
+        <Typography variant='h6'
+          sx={{
+            color: "#5E6282",
+            fontSize: { xs: '16px', md: '18px' },
+            fontWeight: 200,
+            fontFamily: "Poppins",
+            mb: 2
+          }}
+        >
+          Top Selling
+        </Typography>
+        <Typography variant='h2'
+          sx={{
+            color: "#181E4B",
+            fontSize: { xs: '36px', md: '50px' },
+            fontWeight: 500,
+            fontFamily: "'Volkhov', serif",
+            mb: 2,
+            textAlign: 'center'
+          }}
+        >
+          DESTINATIONS
+        </Typography>
 
         <Box
           sx={{
@@ -337,28 +355,36 @@ const Destination = () => {
                   display: 'flex',
                   flexDirection: 'column',
                   alignItems: "center",
+                  maxWidth: 300,
+                  boxShadow: '0 4px 15px rgba(0,0,0,0.1)',
+                  borderRadius: '24px',
+                  overflow: 'hidden',
+                  transition: 'transform 0.3s ease',
+                  '&:hover': {
+                    transform: 'scale(1.05)'
+                  }
                 }}
               >
-                {/* Image Section */}
                 <Image
                   src={destination.icon}
-                  alt={destination.icon}
-                  width={80} // Matches card width
-                  height={250} // Taller image for emphasis
+                  alt={destination.title}
+                  width={300}
+                  height={250}
                   style={{
-                  objectFit: 'cover', // Ensures proper scaling
-                  width: '150%',
-                }}
+                    objectFit: 'cover',
+                    width: '100%',
+                    height: 'auto'
+                  }}
                 />
 
-                {/* Text Section */}
                 <Box
                   sx={{
                     backgroundColor: '#705BFA',
-                    padding: '24px 56px', 
+                    width: '100%',
+                    padding: '16px 24px', 
+                    marginLeft: 4,
                     borderBottomLeftRadius: '24px',
                     borderBottomRightRadius: '24px',
-                    marginTop: "-32px"
                   }}
                 >
                   <Typography
@@ -370,7 +396,7 @@ const Destination = () => {
                       marginBottom: '8px',
                     }}
                   >
-                    {destination.title} {/* Example: "London, UK" */}
+                    {destination.title}
                   </Typography>
                   <Typography
                     sx={{
@@ -381,17 +407,14 @@ const Destination = () => {
                       lineHeight: 1.5,
                     }}
                   >
-                    {destination.description} {/* Example: "$4.2k" */}
+                    {destination.description}
                   </Typography>
                 </Box>
               </Box>
             ))}
           </Box>
         </Box>
-
-    </Box>
-
-
+      </Box>
     </Box>
   );
 };

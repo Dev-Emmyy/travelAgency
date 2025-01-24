@@ -3,9 +3,33 @@ import { Box } from '@mui/material';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
+import { useEffect } from 'react';
 
 const Navbar = () => {
   const { data: session, status } = useSession();
+
+  useEffect(() => {
+    const handleSmoothScroll = (e) => {
+      const target = e.target;
+      if (target.getAttribute('href')?.startsWith('#')) {
+        e.preventDefault();
+        const targetId = target.getAttribute('href')?.slice(1);
+        const targetElement = document.getElementById(targetId || '');
+        
+        if (targetElement) {
+          targetElement.scrollIntoView({ 
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      }
+    };
+
+    document.addEventListener('click', handleSmoothScroll);
+    return () => {
+      document.removeEventListener('click', handleSmoothScroll);
+    };
+  }, []);
 
   const linkStyle = {
     textDecoration: 'none',
@@ -22,12 +46,12 @@ const Navbar = () => {
 
   const welcomeStyle = {
     textDecoration: 'none',
-    color: '#1976d2', // Different color for welcome message
+    color: '#1976d2',
     fontWeight: 'bold',
     fontFamily: "'Product Sans', sans-serif",
     padding: '8px 16px',
-    backgroundColor: '#e3f2fd', // Light blue background
-    borderRadius: '20px', // Rounded corners
+    backgroundColor: '#e3f2fd',
+    borderRadius: '20px',
     display: 'flex',
     alignItems: 'center',
     gap: '8px',
@@ -45,13 +69,15 @@ const Navbar = () => {
         padding: '16px 24px',
         backgroundColor: '#ffffff',
         boxShadow: '0 2px 8px rgba(0, 0, 0, 0.08)',
+        position: 'sticky',
+        top: 0,
+        zIndex: 1000
       }}
     >
       {/* Logo Section */}
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
         <Image src="/logo.png" alt="Logo" width={80} height={30} priority />
       </Box>
-
       {/* Navigation Links */}
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
         {status === 'authenticated' && session?.user && (
@@ -63,18 +89,21 @@ const Navbar = () => {
             👋 {session.user.name || 'User'}
           </Box>
         )}
-        
-        {['Destination', 'Bookings', 'Testimonials', 'Agencies'].map((item) => (
+        {[
+          { name: 'Destination', href: '#destination' },
+          { name: 'Bookings', href: '#bookings' },
+          { name: 'Testimonials', href: '#testimonial' },
+          { name: 'Agencies', href: '#agencies' }
+        ].map((item) => (
           <Box
-            key={item}
+            key={item.name}
             component={Link}
-            href="/"
+            href={item.href}
             sx={linkStyle}
           >
-            {item}
+            {item.name}
           </Box>
         ))}
-
         <Box
           component={Link}
           href="/signout"

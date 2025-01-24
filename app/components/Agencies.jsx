@@ -114,7 +114,7 @@ const Agencies = () => {
           maxWidth: 500
         }}
       >
-        Subscribe to get information, latest news and other
+        Subscribe to get information, latest news and other interesting offers about Jadoo
       </Typography>
 
       <Box

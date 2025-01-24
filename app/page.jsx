@@ -10,7 +10,6 @@ import Testimonial from './components/Testimonial';
 import Agencies from './components/Agencies';
 import Footer from './components/Footer';
 
-
 export default function Page() {
   const { status } = useSession();
   const router = useRouter();
@@ -24,9 +23,9 @@ export default function Page() {
   // Only show content if authenticated
   if (status === 'authenticated') {
     return (
-      <Box 
-        sx={{ 
-          backgroundColor: '#D5D6DB', 
+      <Box
+        sx={{
+          backgroundColor: '#D5D6DB',
           minHeight: '100vh',
           width: '100%',
           margin: 0,
@@ -34,16 +33,17 @@ export default function Page() {
           display: 'flex',
           flexDirection: 'column',
           position: 'relative'
-        }}>        
+        }}
+      >
         <Navbar/>
-        <Destination/>
-        <Bookings/>
-        <Testimonial/>
-        <Agencies/>
+        <Box id="destination"><Destination/></Box>
+        <Box id="bookings"><Bookings/></Box>
+        <Box id="testimonial"><Testimonial/></Box>
+        <Box id="agencies"><Agencies/></Box>
         <Footer/>
       </Box>
     );
   }
 
-  return null; 
+  return null;
 }

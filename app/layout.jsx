@@ -4,13 +4,19 @@ import SessionProviderWrapper from "./SessionProviderWrapper";
 export const metadata = {
   title: "Travel Agency",
   description: "Travel around the world easily",
+  icons: {
+    icon: [
+      {
+        url: '/appLogo.png',
+        href: '/appLogo.png',
+      }
+    ],
+    shortcut: '/appLogo.png',
+    apple: '/appLogo.png',
+  },
+  manifest: '/manifest.json'
 };
 
-// Define the viewport configuration separately
-export const viewport = {
-  width: "device-width",
-  initialScale: 1,
-};
 
 export default function RootLayout({ children }) {
   return (

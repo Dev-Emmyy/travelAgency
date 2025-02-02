@@ -62,7 +62,9 @@ export default function Signup() {
         <CardContent sx={{ p: 3 }}>
           <Box sx={{ textAlign: 'center', mb: 3 }}>
             <Mail sx={{ color: 'orange', fontSize: 40, mb: 1 }} />
-            <Typography variant="h5" component="h1" fontWeight="bold">
+            <Typography 
+            variant="h5" component="h1" fontWeight="bold" 
+            sx={{fontFamily: "Product Sans",}}>
               Sign Up
             </Typography>
           </Box>
@@ -114,16 +116,26 @@ export default function Signup() {
               variant="contained"
               sx={{
                 mt: 3,
-                mb: 2,
+                py: 1.5,
+                borderRadius: '8px',
+                fontWeight: 700,
+                fontSize: '1rem',
+                fontFamily: "Product Sans",
+                textTransform: 'none',
                 bgcolor: 'orange',
                 '&:hover': {
                   bgcolor: 'darkorange',
+                  boxShadow: '0 8px 24px rgba(255, 152, 0, 0.3)'
                 },
+                '&.Mui-disabled': {
+                  bgcolor: 'action.disabledBackground'
+                }
               }}
             >
               Sign Up
             </Button>
-            <Typography variant="body2" align="center" mt={2}>
+            <Typography variant="body2" align="center" mt={2}
+            sx={{fontFamily: "Product Sans",}}>
               Already have an account?{' '}
               <a href="/login" style={{ textDecoration: 'none', color: 'orange' }}>
                 Log in

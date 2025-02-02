@@ -19,6 +19,19 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
+  const getErrorMessage = (error) => {
+    switch (error) {
+      case "CredentialsSignin":
+        return "Invalid email or password.";
+      case "AccessDenied":
+        return "Account not verified. Please check your email.";
+      case "TooManyAttempts":
+        return "Too many failed login attempts. Try again later.";
+      default:
+        return "An error occurred while logging in. Please try again.";
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -30,12 +43,12 @@ export default function LoginPage() {
         redirect: false,
       });
       if (result?.error) {
-        setError(result.error);
+        setError(getErrorMessage(result.error));
       } else {
         window.location.href = '/';
       }
-    } catch (error) {
-      setError('An error occurred during login');
+    } catch (err) {
+      setError("An unexpected error occurred. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -64,28 +77,6 @@ export default function LoginPage() {
           background: 'linear-gradient(135deg, #F9F8F5 0%, #FFFFFF 100%)'
         }}
       >
-        <Box sx={{ 
-          position: 'absolute',
-          top: 40,
-          left: 40,
-          mb: 4,
-          display: 'flex',
-          alignItems: 'center',
-          gap: 1.5
-        }}>
-          <Typography
-            variant="h4"
-            sx={{
-              fontFamily: 'Alkalami',
-              fontWeight: 700,
-              color: 'orange.main',
-              letterSpacing: '-0.5px'
-            }}
-          >
-            TravelAgency
-          </Typography>
-        </Box>
-
         <Box
           sx={{
             width: { xs: '100%', sm: '400px' },
@@ -119,7 +110,6 @@ export default function LoginPage() {
               Sign in to continue your journey
             </Typography>
           </Box>
-
           <Box 
             component="form" 
             onSubmit={handleSubmit}
@@ -140,10 +130,12 @@ export default function LoginPage() {
               fullWidth
               required
               label="Email Address"
-              sx={{ fontFamily: "Product Sans",}}
               type="email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => {
+                setEmail(e.target.value);
+                setError('');
+              }}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
@@ -152,16 +144,18 @@ export default function LoginPage() {
                 ),
               }}
               variant="outlined"
+              error={!!error}
             />
-
             <TextField
               fullWidth
               required
               label="Password"
-              sx={{ fontFamily: "Product Sans",}}
               type="password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => {
+                setPassword(e.target.value);
+                setError('');
+              }}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
@@ -170,22 +164,21 @@ export default function LoginPage() {
                 ),
               }}
               variant="outlined"
+              error={!!error}
             />
-
             {error && (
               <Typography 
                 color="error" 
                 variant="body2" 
+                className="shake-animation"
                 sx={{ 
                   mt: 1,
                   textAlign: 'center',
-                  animation: 'shake 0.4s ease'
                 }}
               >
                 {error}
               </Typography>
             )}
-
             <Button
               type="submit"
               fullWidth
@@ -194,14 +187,14 @@ export default function LoginPage() {
               sx={{
                 mt: 3,
                 py: 1.5,
-                borderRadius: '12px',
+                borderRadius: '8px',
                 fontWeight: 700,
                 fontSize: '1rem',
                 fontFamily: "Product Sans",
                 textTransform: 'none',
-                bgcolor: 'orange.main',
+                bgcolor: 'orange',
                 '&:hover': {
-                  bgcolor: 'orange.dark',
+                  bgcolor: 'darkorange',
                   boxShadow: '0 8px 24px rgba(255, 152, 0, 0.3)'
                 },
                 '&.Mui-disabled': {
@@ -215,7 +208,6 @@ export default function LoginPage() {
                 'Sign In'
               )}
             </Button>
-
             <Typography variant="body2" sx={{ 
               fontFamily: "Product Sans",
               textAlign: 'center', 
@@ -226,11 +218,9 @@ export default function LoginPage() {
               <Link 
                 href="/signup" 
                 sx={{ 
-                  color: 'orange.main',
+                  color: 'orange',
                   fontWeight: 600,
-                  '&:hover': {
-                    textDecoration: 'underline'
-                  }
+                  textDecoration: 'none'
                 }}
               >
                 Create account
@@ -239,7 +229,6 @@ export default function LoginPage() {
           </Box>
         </Box>
       </Box>
-
       {/* Image Section */}
       <Box
         sx={{
@@ -254,7 +243,7 @@ export default function LoginPage() {
             left: 0,
             width: '100%',
             height: '100%',
-            background: 'linear-gradient(45deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.1))',
+            background: 'linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.3))',
             zIndex: 1
           }
         }}
@@ -279,11 +268,24 @@ export default function LoginPage() {
             maxWidth: '500px'
           }}
         >
+          <Typography
+            variant="h3"
+            sx={{
+              fontFamily: 'Alkalami',
+              fontWeight: 800,
+              mb: 2,
+              color: 'orange.main',
+              letterSpacing: '-0.5px',
+              textShadow: '0 2px 4px rgba(0, 0, 0, 0.3)'
+            }}
+          >
+            TravelAgency
+          </Typography>
           <Typography variant="h3" sx={{ 
-            fontWeight: 700,
+            fontWeight: 400,
             mb: 2,
             fontFamily: "Product Sans",
-            textShadow: '0 2px 8px rgba(0, 0, 0, 0.3)'
+            textShadow: '0 2px 8px rgba(0, 0, 0, 0.5)'
           }}>
             Discover Your Next Adventure
           </Typography>
@@ -291,7 +293,7 @@ export default function LoginPage() {
             fontSize: '1.1rem',
             lineHeight: 1.6,
             fontFamily: "Product Sans",
-            textShadow: '0 2px 4px rgba(0, 0, 0, 0.2)'
+            textShadow: '0 2px 4px rgba(0, 0, 0, 0.4)'
           }}>
             Explore breathtaking destinations and create unforgettable memories with our curated travel experiences.
           </Typography>

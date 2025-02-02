@@ -23,143 +23,172 @@ const Agencies = () => {
   ];
 
   return (
-    <Box sx={{mt: 5}}>
+  <Box sx={{ mt: 5, fontFamily: "'Poppins', sans-serif" }}>
+    {/* Agencies Grid */}
+    <Box 
+      sx={{
+        mb: 6,
+        display: 'grid',
+        gridTemplateColumns: {
+          xs: 'repeat(2, 1fr)',
+          sm: 'repeat(3, 1fr)',
+          md: 'repeat(5, 1fr)'
+        },
+        gap: 3,
+        px: 2,
+        maxWidth: 1200,
+        margin: '0 auto'
+      }}
+    >
+      {agencies.map((agency, index) => (
         <Box 
+          key={index} 
           sx={{
-            mb: 6,
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            flexWrap: 'wrap',
-            gap: { xs: 2, sm: 3, md: 4 }
-        }}>
-        {agencies.map((agency, index) => (
-            <Box 
-                key={index} 
-                sx={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    width: { xs: 100, sm: 120, md: 150 },
-                    opacity: 0.6,
-                    transition: 'opacity 0.3s ease',
-                    '&:hover': {
-                        opacity: 1
-                    }
-                }}
-            >
-                <Image
-                    src={agency.icon}
-                    alt={`Company ${index + 1}`}
-                    width={150}
-                    height={80}
-                    style={{ 
-                        objectFit: 'contain',
-                        maxWidth: '100%',
-                        height: 'auto'
-                    }}
-                />
-            </Box>
-        ))}
+            p: 1,
+            opacity: 0.8,
+            transition: 'all 0.3s ease',
+            '&:hover': {
+              opacity: 1,
+              transform: 'scale(1.05)'
+            }
+          }}
+        >
+          <Image
+            src={agency.icon}
+            alt={`${agency.name} logo`}
+            width={150}
+            height={80}
+            style={{ 
+              width: '100%',
+              height: 'auto',
+              maxWidth: 150,
+              objectFit: 'contain'
+            }}
+          />
+        </Box>
+      ))}
     </Box>
 
+    {/* Subscription Card */}
     <Box 
       sx={{
-        backgroundColor: "#6246E5",
+        bgcolor: '#6246E5',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        justifyContent: 'center',
-        padding: { xs: "24px 4px", sm: "64px 8px" },
+        p: { xs: 3, sm: 4, md: 6 },
         borderRadius: 4,
-        maxWidth: 800,
-        margin: 'auto',
+        mx: { xs: 2, sm: 4 },
         position: 'relative',
-        overflow: 'visible'
+        overflow: 'hidden',
+        boxShadow: '0 16px 40px rgba(98,70,229,0.3)'
       }}
     >
-      {/* Floating Paper Plane Icon */}
+      {/* Floating Icon */}
       <Box
         sx={{
           position: 'absolute',
-          top: -30,
-          right: -20,
-          width: 70,
-          height: 70,
-          backgroundColor: '#705BFA',
+          top: { xs: -20, sm: -30 },
+          right: { xs: -20, sm: -30 },
+          width: { xs: 60, sm: 80 },
+          height: { xs: 60, sm: 80 },
+          bgcolor: '#705BFA',
           borderRadius: '50%',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          boxShadow: '0 4px 15px rgba(0,0,0,0.2)',
-          zIndex: 10
+          boxShadow: 3
         }}
       >
         <SendIcon 
           sx={{ 
             color: 'white', 
-            fontSize: 35 
+            fontSize: { xs: 28, sm: 35 } 
           }} 
         />
       </Box>
 
       <Typography 
         sx={{
-          color: "white",
-          fontFamily: "Poppins",
+          color: 'white',
           fontWeight: 600,
-          fontSize: { xs: '16px', sm: '18px' },
+          fontSize: { xs: '20px', sm: '24px', md: '28px' },
           textAlign: 'center',
           mb: 3,
-          maxWidth: 500
+          maxWidth: 800,
+          lineHeight: 1.3,
+          position: 'relative',
+          zIndex: 1
         }}
       >
-        Subscribe to get information, latest news and other interesting offers about Jadoo
+        Subscribe for latest travel updates & exclusive offers
       </Typography>
 
       <Box
         sx={{
           display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
+          flexDirection: { xs: 'column', sm: 'row' },
           gap: 2,
           width: '100%',
-          maxWidth: 500
+          maxWidth: 600,
+          position: 'relative',
+          zIndex: 1
         }}
       >
         <TextField
           fullWidth
-          variant="outlined"
-          placeholder="Your email"
-          sx={{
-            backgroundColor: 'white',
-            borderRadius: 2,
-            '& .MuiOutlinedInput-root': {
-              borderRadius: 2,
-              backgroundColor: 'white'
+          variant="filled"
+          placeholder="Enter your email"
+          InputProps={{
+            disableUnderline: true,
+            sx: {
+              bgcolor: 'white',
+              borderRadius: '8px',
+              p: 1,
+              fontSize: { xs: '14px', sm: '16px' },
+              '& .MuiInputBase-input': {
+                p: { xs: '8px', sm: '10px' }
+              }
             }
           }}
         />
         <Button 
+          variant="contained"
           sx={{
-            backgroundColor: "#FF7D68",
-            color: "#FFFFFF",
-            fontSize: { xs: '12px', sm: '14px' },
+            bgcolor: '#FF7D68',
+            color: 'white',
+            fontSize: { xs: '14px', sm: '16px' },
             fontWeight: 600,
-            fontFamily: "'Open Sans', sans-serif",
-            borderRadius: 2,
-            p: { xs: 1, sm: 1.5 },
+            borderRadius: '8px',
+            p: { xs: '10px 20px', sm: '12px 32px' },
+            minWidth: { sm: 140 },
             '&:hover': {
-              backgroundColor: "#FF6B4E"
+              bgcolor: '#FF6B4E',
+              boxShadow: '0 4px 12px rgba(255,125,104,0.4)'
             }
           }}
         >
           Subscribe
         </Button>
       </Box>
-    </Box>
-   </Box>
-  )
-}
 
+      {/* Background Pattern */}
+      <Box
+        sx={{
+          position: 'absolute',
+          bottom: -50,
+          left: -50,
+          width: 200,
+          height: 200,
+          bgcolor: 'rgba(255,255,255,0.1)',
+          borderRadius: '50%'
+        }}
+      />
+    </Box>
+  </Box>
+ )
+}
 export default Agencies

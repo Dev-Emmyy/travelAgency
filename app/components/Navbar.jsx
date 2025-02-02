@@ -10,20 +10,16 @@ const Navbar = () => {
   const { data: session, status } = useSession();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const isMobile = useMediaQuery('(max-width:768px)');
-
   const getFirstName = (name) => {
     if (!name) return 'User';
     return name.split(' ')[0];
   };
-
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const closeMenu = () => setIsMenuOpen(false);
-
   const handleSignOut = async () => {
     await signOut({ callbackUrl: '/login' });
     closeMenu();
   };
-
   const linkStyle = {
     textDecoration: 'none',
     color: '#212832',
@@ -34,10 +30,9 @@ const Navbar = () => {
     transition: 'all 0.2s ease',
     '&:hover': {
       backgroundColor: '#f5f5f5',
-      transform: 'translateY(-2px)'
-    }
+      transform: 'translateY(-2px)',
+    },
   };
-
   const welcomeStyle = {
     textDecoration: 'none',
     color: '#FF6F00', // Changed to orange
@@ -51,16 +46,14 @@ const Navbar = () => {
     gap: '8px',
     '&:hover': {
       backgroundColor: '#FFE0B2', // Darker orange tint
-    }
+    },
   };
-
   const navItems = [
     { name: 'Destination', href: '#destination' },
     { name: 'Bookings', href: '#bookings' },
     { name: 'Testimonials', href: '#testimonial' },
-    { name: 'Agencies', href: '#agencies' }
+    { name: 'Agencies', href: '#agencies' },
   ];
-
   return (
     <Box
       sx={{
@@ -71,16 +64,17 @@ const Navbar = () => {
         padding: '16px 24px',
         backgroundColor: '#ffffff',
         boxShadow: '0 2px 8px rgba(0, 0, 0, 0.08)',
-        position: 'sticky',
+        position: 'fixed', // Changed from 'sticky' to 'fixed'
         top: 0,
-        zIndex: 1000
+        left: 0,
+        right: 0, // Ensure it spans the full width of the viewport
+        zIndex: 1000, // Ensure it stays above other content
       }}
     >
       {/* Logo Section */}
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
         <Image src="/logo.png" alt="Logo" width={80} height={30} priority />
       </Box>
-
       {/* Mobile Section */}
       {isMobile && (
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
@@ -98,7 +92,6 @@ const Navbar = () => {
           </IconButton>
         </Box>
       )}
-
       {/* Desktop Navigation */}
       {!isMobile && (
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
@@ -117,14 +110,13 @@ const Navbar = () => {
             sx={{
               ...linkStyle,
               color: '#d32f2f',
-              '&:hover': { backgroundColor: '#ffebee' }
+              '&:hover': { backgroundColor: '#ffebee' },
             }}
           >
             Sign Out
           </Button>
         </Box>
       )}
-
       {/* Mobile Drawer */}
       <Drawer
         anchor="right"
@@ -138,34 +130,36 @@ const Navbar = () => {
             position: 'fixed',
             overflow: 'hidden',
             '& .MuiBackdrop-root': {
-              backgroundColor: 'transparent'
-            }
-          }
+              backgroundColor: 'transparent',
+            },
+          },
         }}
       >
         <Box sx={{ position: 'relative', height: '100%' }}>
-          <IconButton 
-            onClick={closeMenu} 
-            sx={{ 
+          <IconButton
+            onClick={closeMenu}
+            sx={{
               position: 'absolute',
               right: 16,
               top: 16,
-              zIndex: 1
+              zIndex: 1,
             }}
           >
             <Close fontSize="large" />
           </IconButton>
-          <List sx={{ 
-            pt: 8,
-            display: 'flex', 
-            flexDirection: 'column', 
-            gap: 2,
-            alignItems: 'center',
-            '&& .MuiListItem-root': {
-              padding: 0,
-              width: '100%'
-            }
-          }}>
+          <List
+            sx={{
+              pt: 8,
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 2,
+              alignItems: 'center',
+              '&& .MuiListItem-root': {
+                padding: 0,
+                width: '100%',
+              },
+            }}
+          >
             {navItems.map((item) => (
               <ListItem key={item.name} sx={{ justifyContent: 'center' }}>
                 <Box component={Link} href={item.href} sx={linkStyle} onClick={closeMenu}>
@@ -181,7 +175,7 @@ const Navbar = () => {
                   color: '#d32f2f',
                   display: 'flex',
                   alignItems: 'center',
-                  gap: 1
+                  gap: 1,
                 }}
               >
                 <ExitToApp /> Sign Out

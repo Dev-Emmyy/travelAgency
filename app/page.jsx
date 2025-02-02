@@ -27,12 +27,7 @@ export default function Page() {
         sx={{
           backgroundColor: '#D5D6DB',
           minHeight: '100vh',
-          width: '100%',
-          margin: 0,
-          padding: 0,
-          display: 'flex',
-          flexDirection: 'column',
-          position: 'relative'
+          paddingTop: '60px',
         }}
       >
         <Navbar/>

@@ -1,160 +1,176 @@
-import { Box, Typography, Grid } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import React from 'react'
+import Image from 'next/image';
 
 const Testimonial = () => {
-  return (
-     <Box
-        sx={{
-        display: 'flex',
-        flexDirection: { xs: 'column', md: 'row' },
-        justifyContent: 'center',
-        alignItems: 'center',
-        gap: { xs: 3, sm: 4, md: 5 },
-        p: { xs: 2, sm: 3, md: 4 },
-        mt: 10,
-        }}>
-        {/* Left Side - Text and Steps */}
-     <Box 
-        sx={{ 
-            width: { xs: '100%', md: '50%' },
-            maxWidth: 600,
-            pr: { md: 4 }
-        }}
-        >
-        <Typography 
-            variant='h6'
-            sx={{
-            color: "#5E6282",
-            fontSize: { xs: '16px', sm: '18px' },
-            fontWeight: 200,
-            fontFamily: "Poppins",
-            mb: 2,
-            textTransform: 'uppercase',
-            letterSpacing: 1
-            }}
-        >
-            Testimonials
-        </Typography>
-
-        <Typography 
-            variant='h2'
-            sx={{
-            color: "#181E4B",
-            fontSize: { xs: '36px', sm: '44px', md: '50px' },
-            fontWeight: 700,
-            fontFamily: "'Volkhov', serif",
-            lineHeight: 1.2,
-            mb: 3
-            }}
-        >
-            What people say about Us.
-        </Typography>
-        </Box>
-
+ return (
+  <Box
+    sx={{
+      display: 'flex',
+      flexDirection: { xs: 'column', md: 'row' },
+      justifyContent: 'center',
+      alignItems: 'center',
+      gap: { xs: 4, md: 8 },
+      p: { xs: 3, md: 6 },
+      mt: 8,
+      fontFamily: "'Poppins', sans-serif"
+    }}
+  >
+    {/* Left Side - Text Content */}
     <Box 
+      sx={{ 
+        width: { xs: '100%', md: '50%' },
+        maxWidth: 600,
+        textAlign: { xs: 'center', md: 'left' }
+      }}
+    >
+      <Typography 
+        variant='h6'
         sx={{
-            width: { xs: '100%', md: '50%' },
-            maxWidth: 400,
-            position: 'relative',
-            display: 'flex',
-            flexDirection: 'column',
-            boxShadow: '0 10px 25px rgba(112, 91, 250, 0.2)',
-            borderRadius: '24px',
-            overflow: 'visible',
-            backgroundColor: "#ffffff",
-            border: '1px solid #f0f0f0'
+          color: "#5E6282",
+          fontSize: { xs: '14px', md: '16px' },
+          fontWeight: 600,
+          letterSpacing: 2,
+          mb: 2,
+          textTransform: 'uppercase'
         }}
-        >
-        {/* Floating Profile Image */}
-        <Box
-            sx={{
-            position: 'absolute',
-            top: -30,
-            left: -15,
-            zIndex: 10,
-            width: 70,
-            height: 70,
-            borderRadius: '50%',
-            border: '3px solid white',
-            boxShadow: '0 4px 15px rgba(0,0,0,0.2)',
-            overflow: 'visible',
-            backgroundColor: 'white'
-            }}
-        >
-            <Box
-            component="img"
-            src="/profile.png"
-            alt="profile"
-            sx={{ 
-                width: '100%', 
-                height: '100%',
-                objectFit: 'cover',
-                borderRadius: '50%'
-            }}
-            />
-        </Box>
+      >
+        Testimonials
+      </Typography>
 
-        {/* Content Container */}
-        <Box sx={{ 
-            pt: 5,  
-            p: 3 
-        }}>
-            <Typography
-            variant="body2"
-            sx={{
-                color: "#5E6282",
-                fontSize: { xs: '14px', sm: '16px' },
-                fontWeight: 300,
-                fontFamily: "Poppins",
-                mt: 3,
-                mb: 2,
-                lineHeight: 1.6
-            }}
-            >
-            "On the Windows talking painted pasture yet its express parties use. Sure last upon he same as knew next. Of believed or diverted no."
-            </Typography>
+      <Typography 
+        variant='h2'
+        sx={{
+          color: "#181E4B",
+          fontSize: { xs: '32px', sm: '40px', md: '48px' },
+          fontWeight: 700,
+          fontFamily: "'Volkhov', serif",
+          lineHeight: 1.2,
+          mb: 3
+        }}
+      >
+        What people say about Us
+      </Typography>
+    </Box>
 
-            <Typography
-            variant="body2"
-            sx={{
-                color: "#5E6282",
-                fontSize: { xs: '14px', sm: '16px' },
-                fontWeight: 600,
-                fontFamily: "Poppins",
-            }}
-            >
-            Mike taylor
-            </Typography>
-            <Typography
-            variant="body2"
-            sx={{
-                color: "#5E6282",
-                fontSize: { xs: '14px', sm: '16px' },
-                fontWeight: 300,
-                fontFamily: "Poppins",
-            }}
-            >
-            Lahore, Pakistan
-            </Typography>
-        </Box>
-
-        {/* Wing-like Border Effect */}
-        <Box 
-            sx={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
+    {/* Right Side - Testimonial Card */}
+    <Box 
+      sx={{
+        width: { xs: '90%', md: '50%' },
+        maxWidth: 500,
+        position: 'relative',
+        bgcolor: 'white',
+        borderRadius: '24px',
+        boxShadow: '0 24px 48px rgba(0,0,0,0.08)',
+        overflow: 'visible',
+        transition: 'transform 0.3s ease',
+        '&:hover': {
+          transform: { md: 'translateY(-8px)' }
+        }
+      }}
+    >
+      {/* Profile Image */}
+      <Box
+        sx={{
+          position: 'absolute',
+          top: { xs: -25, md: -30 },
+          left: { xs: 20, md: -15 },
+          zIndex: 10,
+          width: { xs: 60, md: 70 },
+          height: { xs: 60, md: 70 },
+          borderRadius: '50%',
+          border: '3px solid white',
+          boxShadow: 3,
+          overflow: 'hidden'
+        }}
+      >
+        <Image
+          src="/profile.png"
+          alt="Customer profile"
+          width={70}
+          height={70}
+          style={{
             width: '100%',
             height: '100%',
-            pointerEvents: 'none',
-            border: '2px solid #705BFA',
-            borderRadius: '24px',
-            borderTopLeftRadius: '50px',
-            boxShadow: 'inset 0 0 10px rgba(112, 91, 250, 0.2)'
-            }} />
+            objectFit: 'cover',
+            borderRadius: '50%'
+          }}
+        />
+      </Box>
+
+      {/* Card Content */}
+      <Box sx={{ 
+        pt: { xs: 6, md: 5 },
+        p: { xs: 3, md: 4 },
+        position: 'relative'
+      }}>
+        {/* Decorative Quote Icon */}
+        <Box
+          sx={{
+            position: 'absolute',
+            top: 20,
+            right: 20,
+            color: '#705BFA',
+            opacity: 0.1,
+            fontSize: '60px'
+          }}
+        >
+          ❝
         </Box>
+
+        <Typography
+          sx={{
+            color: "#5E6282",
+            fontSize: { xs: '15px', md: '16px' },
+            fontWeight: 300,
+            lineHeight: 1.6,
+            mt: 3,
+            mb: 2,
+          }}
+        >
+          "On the Windows talking painted pasture yet its express parties use. 
+          Sure last upon he same as knew next. Of believed or diverted no."
+        </Typography>
+
+        <Box>
+          <Typography
+            sx={{
+              color: "#181E4B",
+              fontSize: '18px',
+              fontWeight: 600,
+              mb: 0.5
+            }}
+          >
+            Mike Taylor
+          </Typography>
+          <Typography
+            sx={{
+              color: "#5E6282",
+              fontSize: '14px',
+              fontWeight: 400
+            }}
+          >
+            Lahore, Pakistan
+          </Typography>
+        </Box>
+      </Box>
+
+      {/* Decorative Border */}
+      <Box 
+        sx={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          border: '2px solid rgba(112, 91, 250, 0.15)',
+          borderRadius: '24px',
+          pointerEvents: 'none'
+        }} 
+      />
     </Box>
-  )
+  </Box>
+)
 }
 
 export default Testimonial

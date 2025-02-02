@@ -1,132 +1,207 @@
 'use client';
 import React, { useEffect } from 'react';
-import { Box, Container, Grid, Typography, Link } from '@mui/material';
-import NextLink from 'next/link';
+import { Box, Container, Typography, Link, IconButton, Stack, Grid } from '@mui/material';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import TwitterIcon from '@mui/icons-material/Twitter';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import Image from 'next/image';
 
 const Footer = () => {
   useEffect(() => {
     const handleSmoothScroll = (e) => {
-      const target = e.target;
-      if (target.getAttribute('href')?.startsWith('#')) {
+      const target = e.target.closest('a[href^="#"]');
+      if (target) {
         e.preventDefault();
-        const targetId = target.getAttribute('href')?.slice(1);
-        const targetElement = document.getElementById(targetId || '');
+        const targetId = target.getAttribute('href').slice(1);
+        const targetElement = document.getElementById(targetId);
         
         if (targetElement) {
           targetElement.scrollIntoView({ 
             behavior: 'smooth',
             block: 'start'
           });
+          
+          // Update URL without reloading
+          window.history.pushState({}, '', `#${targetId}`);
         }
       }
     };
 
     document.addEventListener('click', handleSmoothScroll);
-    return () => {
-      document.removeEventListener('click', handleSmoothScroll);
-    };
+    return () => document.removeEventListener('click', handleSmoothScroll);
   }, []);
 
   return (
-    <Box component="footer" sx={{mt: 8, py: 8, backgroundColor: '#f4f4f4'}}>
+    <Box 
+      component="footer" 
+      sx={{ 
+        mt: 8, 
+        py: { xs: 4, md: 8 },
+        backgroundColor: 'background.paper',
+        borderTop: '1px solid',
+        borderColor: 'divider'
+      }}
+    >
       <Container maxWidth="lg">
-        <Grid container spacing={4}>
-          <Grid item xs={12} sm={6} md={3}>
-            <Image src="/logo.png" alt="Logo" width={120} height={40} />
-            <Typography variant="body2" color="text.secondary" mt={2}>
+        <Grid container spacing={{ xs: 3, md: 4 }}>
+          {/* Logo Column */}
+          <Grid item xs={12} md={3} sx={{ textAlign: { xs: 'center', md: 'left' } }}>
+            <Box sx={{ mb: 2 }}>
+              <Image 
+                src="/logo.png" 
+                alt="Logo" 
+                width={140} 
+                height={50}
+                style={{ objectFit: 'contain' }}
+              />
+            </Box>
+            <Typography 
+              variant="body2" 
+              sx={{ 
+                color: 'text.secondary',
+                fontFamily: "'Poppins', sans-serif",
+                lineHeight: 1.6
+              }}
+            >
               Travel the world with our curated experiences.
             </Typography>
           </Grid>
-          <Grid item xs={12} sm={6} md={3}>
-            <Typography variant="h6" gutterBottom>
+
+          {/* Quick Links Column */}
+          <Grid item xs={6} md={3}>
+            <Typography 
+              variant="h6" 
+              sx={{ 
+                mb: 2,
+                fontFamily: "'Volkhov', serif",
+                fontSize: '1.25rem',
+                fontWeight: 700
+              }}
+            >
               Quick Links
             </Typography>
-            <nav>
-              <Link 
-                component={NextLink} 
-                href="#destination" 
-                underline="hover" 
-                color="inherit" 
-                display="block" 
-                mb={1}
-              >
-                Destinations
-              </Link>
-              <Link 
-                component={NextLink} 
-                href="#bookings" 
-                underline="hover" 
-                color="inherit" 
-                display="block" 
-                mb={1}
-              >
-                Bookings
-              </Link>
-              <Link 
-                component={NextLink} 
-                href="#testimonial" 
-                underline="hover" 
-                color="inherit" 
-                display="block" 
-                mb={1}
-              >
-                Testimonials
-              </Link>
-              <Link 
-                component={NextLink} 
-                href="#agencies" 
-                underline="hover" 
-                color="inherit" 
-                display="block" 
-                mb={1}
-              >
-                Agencies
-              </Link>
-            </nav>
+            <Stack spacing={1}>
+              {['destination', 'bookings', 'testimonial', 'agencies'].map((link) => (
+                <Link
+                  key={link}
+                  href={`#${link}`}
+                  sx={{
+                    color: 'text.primary',
+                    '&:hover': {
+                      color: 'primary.main',
+                      textDecoration: 'none'
+                    }
+                  }}
+                >
+                  {link.charAt(0).toUpperCase() + link.slice(1)}
+                </Link>
+              ))}
+            </Stack>
           </Grid>
-          <Grid item xs={12} sm={6} md={3}>
-            <Typography variant="h6" gutterBottom>
-              Contact Us
-            </Typography>
-            <Typography variant="body2" color="text.secondary" mb={1}>
+
+          {/* Contact Column */}
+        <Grid item xs={6} md={3}>
+          <Typography 
+            variant="h6" 
+            sx={{ 
+              mb: 2,
+              fontFamily: "'Volkhov', serif",
+              fontSize: '1.25rem',
+              fontWeight: 700
+            }}
+          >
+            Contact
+          </Typography>
+          <Stack spacing={1}>
+            <Typography variant="body2" sx={{ color: 'text.secondary' }}>
               123 Main Street, Anytown USA
             </Typography>
-            <Typography variant="body2" color="text.secondary" mb={1}>
-              Phone: (123) 456-7890
-            </Typography>
-            <Typography variant="body2" color="text.secondary" mb={1}>
-              Email: info@travelbooking.com
-            </Typography>
-          </Grid>
-          <Grid item xs={12} sm={6} md={3}>
-            <Typography variant="h6" gutterBottom>
-              Follow Us
-            </Typography>
-            <Box>
-              <Link href="#" underline="hover" color="inherit" mr={2}>
-                <i className="fab fa-facebook-f"></i>
-              </Link>
-              <Link href="#" underline="hover" color="inherit" mr={2}>
-                <i className="fab fa-twitter"></i>
-              </Link>
-              <Link href="#" underline="hover" color="inherit" mr={2}>
-                <i className="fab fa-instagram"></i>
-              </Link>
-              <Link href="#" underline="hover" color="inherit" mr={2}>
-                <i className="fab fa-linkedin-in"></i>
-              </Link>
-            </Box>
-          </Grid>
+            <Link href="tel:1234567890" sx={{ color: 'text.primary' }}>
+              (123) 456-7890
+            </Link>
+            <Link 
+              href="mailto:info@travelbooking.com" 
+              sx={{ 
+                color: 'text.primary',
+                wordBreak: 'break-word'
+              }}
+            >
+              info@travelbooking.com
+            </Link>
+          </Stack>
         </Grid>
-        <Box mt={4}>
-          <Typography variant="body2" color="text.secondary" align="center">
-            &copy; 2024 Travel Booking. All rights reserved.
+
+        {/* Social Media Column */}
+        <Grid item xs={12} md={3}>
+          <Typography 
+            variant="h6" 
+            sx={{ 
+              mb: 2,
+              fontFamily: "'Volkhov', serif",
+              fontSize: '1.25rem',
+              fontWeight: 700,
+              textAlign: { xs: 'center', md: 'left' }
+            }}
+          >
+            Follow Us
           </Typography>
-        </Box>
-      </Container>
-    </Box>
-  );
+          <Stack 
+            direction="row" 
+            spacing={2} 
+            sx={{ 
+              justifyContent: { xs: 'center', md: 'flex-start' },
+              '& .MuiSvgIcon-root': {
+                transition: 'all 0.3s ease',
+                '&:hover': {
+                  color: 'primary.main',
+                  transform: 'translateY(-2px)'
+                }
+              }
+            }}
+          >
+            {[
+              <FacebookIcon key="fb" />,
+              <TwitterIcon key="tw" />,
+              <InstagramIcon key="ig" />,
+              <LinkedInIcon key="li" />
+            ].map((Icon, index) => (
+              <IconButton 
+                key={index}
+                color="inherit"
+                sx={{ color: 'text.primary' }}
+              >
+                {Icon}
+              </IconButton>
+            ))}
+          </Stack>
+        </Grid>
+      </Grid>
+
+      {/* Copyright Section */}
+      <Box 
+        sx={{ 
+          mt: 4,
+          pt: 4,
+          borderTop: '1px solid',
+          borderColor: 'divider',
+          textAlign: 'center'
+        }}
+      >
+        <Typography 
+          variant="body2" 
+          sx={{ 
+            color: 'text.secondary',
+            fontFamily: "'Poppins', sans-serif"
+          }}
+        >
+          &copy; {new Date().getFullYear()} Travel Booking. All rights reserved.
+        </Typography>
+      </Box>
+    </Container>
+  </Box>
+)
 };
+
 
 export default Footer;

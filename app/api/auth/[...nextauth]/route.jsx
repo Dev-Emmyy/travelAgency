@@ -57,6 +57,7 @@ export const authOptions = {
   },
   secret: process.env.NEXTAUTH_SECRET,
   trustHost: true,
+  useSecureCookies: process.env.NODE_ENV === 'production', // Force HTTPS cookie
   cookies: {
     sessionToken: {
       name: `${process.env.NODE_ENV === 'production' ? '__Secure-' : ''}next-auth.session-token`,

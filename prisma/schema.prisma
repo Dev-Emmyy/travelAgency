@@ -15,6 +15,7 @@ model User {
   name          String?
   email         String    @unique
   password      String
+  emailVerified DateTime? // Required for PrismaAdapter
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 }

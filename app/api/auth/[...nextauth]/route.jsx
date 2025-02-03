@@ -1,5 +1,3 @@
-// app/api/auth/[...nextauth]/route.jsx
-
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
@@ -24,22 +22,27 @@ export const authOptions = {
 
         const isValid = await bcrypt.compare(credentials.password, user.password);
         if (!isValid) return null;
+
         return { 
-          id: user.id, // Keep as number
+          id: user.id,
           email: user.email, 
           name: user.name 
         };
       },
     }),
   ],
-  pages: { signIn: "/login" },
+   pages: { signIn: "/login" },
   session: { strategy: "jwt" },
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        token.id = user.id; // number
+        token.user = {
+          id: user.id,
+          name: user.name,
+          email: user.email
+        };
         token.accessToken = jwt.sign(
-          { userId: user.id }, // number
+          { userId: user.id },
           process.env.JWT_SECRET,
           { expiresIn: '7h' }
         );
@@ -47,16 +50,16 @@ export const authOptions = {
       return token;
     },
     async session({ session, token }) {
-      session.user.id = token.id; // number
+      session.user = token.user;
       session.accessToken = token.accessToken;
       return session;
-    },
+    }
   },
   secret: process.env.NEXTAUTH_SECRET,
-  trustHost: true, // Required for Vercel
+  trustHost: true,
   cookies: {
     sessionToken: {
-      name: `__Secure-next-auth.session-token`,
+      name: `${process.env.NODE_ENV === 'production' ? '__Secure-' : ''}next-auth.session-token`,
       options: {
         httpOnly: true,
         sameSite: "lax",
